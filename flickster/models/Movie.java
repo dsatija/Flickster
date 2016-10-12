@@ -11,12 +11,14 @@ import java.util.ArrayList;
  */
 public class Movie {
     String posterPath;
+    String backdrop_posterPath;
     String originalTitle;
     String overview;
 
 
     public Movie(JSONObject jsonObject) throws JSONException {
         this.posterPath = jsonObject.getString("poster_path");
+        this.backdrop_posterPath = jsonObject.getString("backdrop_path");
         this.originalTitle = jsonObject.getString("title");
         this.overview = jsonObject.getString("overview");
     }
@@ -35,6 +37,10 @@ public class Movie {
 
     public String getPosterPath() {
         return String.format("https://image.tmdb.org/t/p/w342/%s",posterPath);
+    }
+
+    public String getBackdrop_posterPath() {
+        return String.format("https://image.tmdb.org/t/p/w342/%s",backdrop_posterPath);
     }
 
     public String getOriginalTitle() {

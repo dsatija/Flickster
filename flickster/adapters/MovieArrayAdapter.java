@@ -1,6 +1,7 @@
 package com.dsatija.flickster.adapters;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +32,9 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
     public View getView(int position, View convertView, ViewGroup parent){
 
         Movie movie = getItem(position);
-
+        String path = null;
         ViewHolder viewHolder;
+
         if(convertView == null){
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -54,9 +56,21 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
 
         viewHolder.tvTitle.setText(movie.getOriginalTitle());
         viewHolder.tvOverview.setText(movie.getOverview());
-        Picasso.with(getContext()).load(movie.getPosterPath()).resize(150,300).
+
+        int orientation = getContext().getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            path = movie.getPosterPath();
+            // ...
+        }
+        if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+            path = movie.getBackdrop_posterPath();
+            // ...
+        }
+        Picasso.with(getContext()).load(path).resize(150,300).
                 into(viewHolder.ivImage);
         return convertView;
 
     }
+
+
 }
