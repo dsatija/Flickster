@@ -19,6 +19,12 @@ import java.util.List;
  */
 public class MovieArrayAdapter extends ArrayAdapter<Movie> {
 
+
+    private static class ViewHolder{
+        TextView tvTitle;
+        TextView tvOverview;
+        ImageView ivImage;
+    }
     public MovieArrayAdapter(Context context, List<Movie> movies){
         super(context,android.R.layout.simple_list_item_1,movies);
     }
@@ -26,18 +32,30 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
 
         Movie movie = getItem(position);
 
+        ViewHolder viewHolder;
         if(convertView == null){
+            viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.item_movie,parent,false);
-        }
-        ImageView ivImage = (ImageView) convertView.findViewById(R.id.ivMovieImage);
-        ivImage.setImageResource(0);
-        TextView tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
-        TextView tvOverview = (TextView) convertView.findViewById(R.id.tvOverview);
+            viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
+            viewHolder.tvOverview = (TextView) convertView.findViewById(R.id.tvOverview);
+            viewHolder.ivImage = (ImageView) convertView.findViewById(R.id.ivMovieImage);
+            viewHolder.ivImage.setImageResource(0);
+            convertView.setTag(viewHolder);
 
-        tvTitle.setText(movie.getOriginalTitle());
-        tvOverview.setText(movie.getOverview());
-        Picasso.with(getContext()).load(movie.getPosterPath()).resize(150,300).into(ivImage);
+        }
+        else{
+            viewHolder = (ViewHolder)convertView.getTag();
+        }
+        //ImageView ivImage = (ImageView) convertView.findViewById(R.id.ivMovieImage);
+       // ivImage.setImageResource(0);
+      //  TextView tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
+       // TextView tvOverview = (TextView) convertView.findViewById(R.id.tvOverview);
+
+        viewHolder.tvTitle.setText(movie.getOriginalTitle());
+        viewHolder.tvOverview.setText(movie.getOverview());
+        Picasso.with(getContext()).load(movie.getPosterPath()).resize(150,300).
+                into(viewHolder.ivImage);
         return convertView;
 
     }
