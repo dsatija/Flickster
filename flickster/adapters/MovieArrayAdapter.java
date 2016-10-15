@@ -72,7 +72,8 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
          //       into(viewHolder.ivImage);
 
         Picasso.with(getContext()).load(path).transform(new RoundedCornersTransformation(10,10)).
-                resize(175,300).into(viewHolder.ivImage);
+                resize(250,0).placeholder(R.drawable.thumbnail_placeholder)
+                .error(R.drawable.thumbnail_placeholder).into(viewHolder.ivImage);
 
         return convertView;
 
