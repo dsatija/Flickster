@@ -2,6 +2,9 @@ package com.dsatija.flickster.adapters;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +25,12 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
  */
 public class MovieArrayAdapter extends ArrayAdapter<Movie> {
 
-
+    ImageView playImage;
     private static class ViewHolder{
         TextView tvTitle;
         TextView tvOverview;
         ImageView ivImage;
+
     }
     public MovieArrayAdapter(Context context, List<Movie> movies){
         super(context,android.R.layout.simple_list_item_1,movies);
@@ -68,6 +72,7 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
             path = movie.getBackdrop_posterPath();
             // ...
         }
+
        // Picasso.with(getContext()).load(path).resize(150,300).
          //       into(viewHolder.ivImage);
 
@@ -77,6 +82,17 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
 
         return convertView;
 
+    }
+
+    public Bitmap putOverlay(Bitmap bmp1, Bitmap overlay) {
+        Bitmap bmOverlay = Bitmap.createBitmap(bmp1.getWidth(), bmp1.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bmOverlay);
+        Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG);
+
+        canvas.drawBitmap(bmp1, 0, 0, null);
+        canvas.drawBitmap(overlay, 0, 0, null);
+
+        return bmOverlay;
     }
 
 

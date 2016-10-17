@@ -1,5 +1,6 @@
 package com.dsatija.flickster.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -7,8 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.dsatija.flickster.intents.MovieDetailActivity;
 import com.dsatija.flickster.R;
 import com.dsatija.flickster.adapters.MovieArrayAdapter;
 import com.dsatija.flickster.models.Movie;
@@ -47,6 +50,7 @@ public class PageFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPage = getArguments().getInt(ARG_PAGE);
+
     }
 
     // Inflate the fragment layout we defined above for this fragment
@@ -56,6 +60,21 @@ public class PageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_page, container, false);
         lvItems = (ListView) view.findViewById(R.id.lvMovies);
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent i = new Intent(getContext(), MovieDetailActivity.class);
+                i.putExtra("title",movies.get(position).getOriginalTitle());
+                i.putExtra("rating",movies.get(position).getRating());
+                i.putExtra("popularity", movies.get(position).getPopularity());
+                i.putExtra("synopsis", movies.get(position).getOverview());
+                i.putExtra("posterPath",movies.get(position).getPosterPath());
+                i.putExtra("backdrop",movies.get(position).getBackdrop_posterPath());
+                startActivity(i);
+            }
+
+        });
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
