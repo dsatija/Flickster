@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivMovieImage_detail"
+            tools:src="@mipmap/ic_launcher"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/image_detail"
+            android:adjustViewBounds="true"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            tools:text="The Girl on the Train"
+            android:id="@+id/tvTitle_detail"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/ivMovieImage_detail"
+            android:layout_alignLeft="@+id/ratingBar_detail"
+            android:layout_alignStart="@+id/ratingBar_detail"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="After waking up in a hospital with amnesia, professor Robert Langdon and a doctor must race against time to foil a deadly global plot."
+            android:id="@+id/tvOverview_detail"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_below="@+id/ratingBar_detail"
+            android:layout_alignLeft="@+id/ratingBar_detail"
+            android:layout_alignStart="@+id/ratingBar_detail"
+            android:layout_alignEnd="@id/ratingBar_detail"
+            android:layout_alignRight="@id/ratingBar_detail"/>
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ratingBar_detail"
+            android:layout_below="@+id/tvTitle_detail"
+            android:layout_centerHorizontal="true"/>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:elevation="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/youtube_logo_front"
+            android:layout_marginLeft="140dp"
+            android:layout_marginTop="75dp"/>
+    </RelativeLayout>
+</ScrollView>
